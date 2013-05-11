@@ -19,7 +19,7 @@ modmenu.add_button = function(name, button_name, button_text)
 	if modmenu.users[name] == nil then
 		modmenu.users[name] = {}
 	end
-	table.insert(modmenu.users[name], {button_name,button_text})
+	modmenu.users[name][button_name] = button_text
 end
 
 --Builds the formspec to display
@@ -28,8 +28,8 @@ modmenu.get_formspec = function(name)
 	local spec = "size[3,8;]label[1,0;Menu]"
 	local pos = 1
 	if modmenu.users[name] ~= nil then
-		for i,button in ipairs((modmenu.users[name])) do
-			spec = spec .. "button[0," .. pos ..";3,1;" .. button[1] .. ";" .. button[2] .. "]"
+		for btn_name,btn_txt in pairs((modmenu.users[name])) do
+			spec = spec .. "button[0," .. pos ..";3,1;" .. btn_name .. ";" .. btn_txt .. "]"
 			pos = pos + 1
 		end
 	end
